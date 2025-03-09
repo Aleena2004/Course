@@ -1,7 +1,7 @@
 package com.example.course.service;
 
-import com.example.course.model.Course;
-import com.example.course.repo.CourseRepository;
+import com.example.course.model.courseModel;
+import com.example.course.repo.courseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,27 +10,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CourseService {
+public class courseService {
 
     @Autowired
-    private CourseRepository courseRepository;
+    private courseRepository courseRepository;
 
-    public List<Course> getAllCourses() {
+    public List<courseModel> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    public Optional<Course> getCourseById(int id) {
+    public Optional<courseModel> getCourseById(int id) {
         return courseRepository.findById(id);
     }
 
-    public Course createCourse(Course course) {
+    public courseModel createCourse(courseModel course) {
         Timestamp now = new Timestamp(System.currentTimeMillis());
         course.setCreatedAt(now);
         course.setUpdatedAt(now);
         return courseRepository.save(course);
     }
 
-    public Course updateCourse(int id, Course courseDetails) {
+    public courseModel updateCourse(int id, courseModel courseDetails) {
         return courseRepository.findById(id).map(course -> {
             course.setName(courseDetails.getName());
             course.setShortCode(courseDetails.getShortCode());

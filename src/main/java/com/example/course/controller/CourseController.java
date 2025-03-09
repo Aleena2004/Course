@@ -2,8 +2,8 @@ package com.example.course.controller;
 
 
 
-import com.example.course.model.Course;
-import com.example.course.service.CourseService;
+import com.example.course.model.courseModel;
+import com.example.course.service.courseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,31 +13,31 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/courses")
-public class CourseController {
+public class courseController {
 
     @Autowired
-    private CourseService courseService;
+    private courseService courseService;
 
     @GetMapping
-    public List<Course> getAllCourses() {
+    public List<courseModel> getAllCourses() {
         return courseService.getAllCourses();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable int id) {
-        Optional<Course> course = courseService.getCourseById(id);
+    public ResponseEntity<courseModel> getCourseById(@PathVariable int id) {
+        Optional<courseModel> course = courseService.getCourseById(id);
         return course.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Course createCourse(@RequestBody Course course) {
+    public courseModel createCourse(@RequestBody courseModel course) {
         return courseService.createCourse(course);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Course> updateCourse(@PathVariable int id, @RequestBody Course courseDetails) {
+    public ResponseEntity<courseModel> updateCourse(@PathVariable int id, @RequestBody courseModel courseDetails) {
         try {
-            Course updatedCourse = courseService.updateCourse(id, courseDetails);
+            courseModel updatedCourse = courseService.updateCourse(id, courseDetails);
             return ResponseEntity.ok(updatedCourse);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
